@@ -15,8 +15,6 @@ def eval(reg, regs, ops):
                 eval(param, regs, ops)
                 (val, _) = regs[param]
 
-            val = regs[val]
-
         if op == "add":
             sum += val
         elif op == "subtract":
@@ -58,12 +56,12 @@ def main():
                     ops[reg].append((op, param))
 
                     (val, updated) = regs[reg]
-                    
+
                     if updated:
                         regs[reg] = (val, False)
                 else:
                     regs[reg] = (0, False)
-                    ops[reg] = [(op, val)]
+                    ops[reg] = [(op, param)]
     
     return 0
 
