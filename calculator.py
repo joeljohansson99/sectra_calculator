@@ -9,6 +9,10 @@ def eval(reg, regs, ops):
         if param.isnumeric():
             val = int(param)
         else:
+            if param not in regs:
+                print("Invalid input: " + param + " is not a register.")
+                continue
+            
             (val, updated) = regs[param]
 
             if not updated:
