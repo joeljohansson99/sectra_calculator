@@ -10,9 +10,9 @@ def eval(reg, regs, ops):
             val = int(param)
         else:
             if param not in regs:
-                print("Invalid input: " + param + " is not a register.")
+                print("Invalid register: " + param)
                 continue
-            
+
             (val, updated) = regs[param]
 
             if not updated:
@@ -25,6 +25,8 @@ def eval(reg, regs, ops):
             sum -= val
         elif op == "multiply":
             sum *= val
+        else:
+            print("Invalid operand: " + op)
 
     regs[reg] = (sum, True)
 
