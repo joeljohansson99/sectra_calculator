@@ -11,8 +11,7 @@ def eval(reg, regs, ops):
             val = int(param)
         else: 
             if param not in regs:
-                print("Invalid register: " + param)
-                continue
+                regs[param] = (0, True)
 
             (val, updated) = regs[param]
 
@@ -36,6 +35,10 @@ def eval(reg, regs, ops):
 def parse_command(cmd, regs, ops):
     if cmd[0] == "print":
         reg = cmd[1]
+
+        if reg not in regs:
+            regs[reg] = (0,True)
+
         (val, updated) = regs[reg]
 
         if not updated:
@@ -68,16 +71,20 @@ def main():
 
             for line in file:
                 cmd = line.rstrip().lower().split(" ")
-                parse_command(cmd, regs, ops)
-
+                try:
+                    parse_command(cmd, regs, ops)
+                except:
+                    print("Invalid command: " + line.rstrip())
     else:
         for line in sys.stdin:
             cmd = line.rstrip().lower().split(" ")
             
             if cmd[0] == "quit":
                 break
-
-            parse_command(cmd, regs, ops)
+            try:
+                parse_command(cmd, regs, ops)
+            except:
+                print("Invalid command: " + line.rstrip())
     
     return 0
 
